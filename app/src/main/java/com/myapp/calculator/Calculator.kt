@@ -74,7 +74,7 @@ fun Calculator(modifier: Modifier = Modifier) {
 }
 @Composable
 fun CalculatorButton( btn : String){
-    Box(modifier = Modifier.padding(8.dp)){
+    Box(modifier = Modifier.padding(7.dp)){
         FloatingActionButton(
             onClick = { /*TODO*/ },
             modifier = Modifier.size(80.dp),
