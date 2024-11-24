@@ -35,7 +35,7 @@ val buttonList = listOf(
 )
 
 @Composable
-fun Calculator(modifier: Modifier = Modifier) {
+fun Calculator(modifier: Modifier = Modifier , viewModel: CalculatorViewModel) {
     Box(modifier=modifier){
         Column (
             modifier = modifier.fillMaxSize(),
@@ -65,7 +65,9 @@ fun Calculator(modifier: Modifier = Modifier) {
                 columns = GridCells.Fixed(4)
             ) {
                 items(buttonList.flatten()) { btn ->
-                    CalculatorButton(btn = btn)
+                    CalculatorButton(btn = btn , onClick = {
+                            viewModel.onButtonClick(btn)
+                    })
                 }
             }
 
@@ -73,10 +75,10 @@ fun Calculator(modifier: Modifier = Modifier) {
     }
 }
 @Composable
-fun CalculatorButton( btn : String){
+fun CalculatorButton( btn : String ,onClick: () -> Unit){
     Box(modifier = Modifier.padding(7.dp)){
         FloatingActionButton(
-            onClick = { /*TODO*/ },
+            onClick = onClick,
             modifier = Modifier.size(80.dp),
             shape= CircleShape,
             contentColor = Color.White,
