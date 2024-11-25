@@ -1,5 +1,6 @@
 package com.myapp.calculator
 
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +17,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,13 +38,17 @@ val buttonList = listOf(
 
 @Composable
 fun Calculator(modifier: Modifier = Modifier , viewModel: CalculatorViewModel) {
+
+    val equationText = viewModel.equation.observeAsState()
+    val resultText = viewModel.result.observeAsState()
+
     Box(modifier=modifier){
         Column (
             modifier = modifier.fillMaxSize(),
             horizontalAlignment = Alignment.End
         ){
             Text(
-                text="123+123",
+                text=equationText.value?:"",
                 style = TextStyle(
                     fontSize = 30.sp,
                     textAlign = TextAlign.End
@@ -53,7 +59,7 @@ fun Calculator(modifier: Modifier = Modifier , viewModel: CalculatorViewModel) {
             Spacer(modifier = Modifier.weight(1f))
 
             Text(
-                text="246",
+                text=resultText.value?:"",
                 style = TextStyle(
                     fontSize = 60.sp,
                     textAlign = TextAlign.End

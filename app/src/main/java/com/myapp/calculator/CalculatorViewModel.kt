@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.mozilla.javascript.Context
+import org.mozilla.javascript.Scriptable
 
 class CalculatorViewModel : ViewModel() {
 
@@ -30,8 +32,28 @@ class CalculatorViewModel : ViewModel() {
                 return
             }
             equationText.value=it+btn //Concat All Buttons
+            //Calculate result
+
+            Log.i("Equation", equationText.value.toString())
+
+            try {
+            calculateResult(equationText.value.toString())
+        }catch ( e:Exception){
 
         }
+    }
 
     }
+    private fun calculateResult(equation: String): String {
+        val context: Context = Context.enter()
+        context.optimizationLevel = -1
+        val scriptable: Scriptable = context.initStandardObjects()
+        val result = context.evaluateString(scriptable, equation, "JavaScript", 1, null).toString()
+        return if (result.endsWith(".0")) {
+            result.replace(".0", "")
+        } else {
+            result
+        }
+    }
+
 }
