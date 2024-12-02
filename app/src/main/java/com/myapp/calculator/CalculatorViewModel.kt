@@ -28,7 +28,9 @@ class CalculatorViewModel : ViewModel() {
                 return
             }
             if (btn=="="){
-                equationText.value=resultText.value
+                val  result= calculateResult(equationText.value.toString())
+                resultText.value=result
+                //equationText.value=resultText.value
                 return
             }
             equationText.value=it+btn //Concat All Buttons
@@ -36,11 +38,6 @@ class CalculatorViewModel : ViewModel() {
 
             Log.i("Equation", equationText.value.toString())
 
-            try {
-            calculateResult(equationText.value.toString())
-        }catch ( e:Exception){
-
-        }
     }
 
     }
